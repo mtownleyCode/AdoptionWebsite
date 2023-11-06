@@ -1,0 +1,86 @@
+﻿@{
+    List<Animal> filteredPets = new List<Animal>();
+}
+
+
+
+
+@using (Html.BeginForm("GetPets", "Home", FormMethod.Get))
+{
+
+    <fieldset>
+
+        @Html.DropDownList("value", (IEnumerable
+    <SelectListItem>)ViewBag.AllPets,
+    "See All",
+    new { style = "width: 250px; margin-bottom: 10px" })
+
+        <p>
+
+            <input type="submit" class="btn-primary" value="Submit" />
+
+        </p>
+
+    </fieldset>
+
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        float: left;
+        width: 170px;
+        padding: 5px;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
+
+@foreach (Animal filteredPet in ViewBag.FilteredPets)
+{
+    <div class="row" style="margin-bottom:25px">
+        <div class="column" style="float:left">
+            <img src=@filteredPet.Img style="width:125px; height: auto" />
+        </div>
+        <div class="column">
+            <p>Name: @filteredPet.Name</p>
+            <p>Description: @filteredPet.Description</p>
+            <p>Breed: @filteredPet.Breed</p>
+            <p>Age: @filteredPet.Age</p>
+
+            <table>
+                <tr>
+                    <td>
+                        <a asp-controller="Animals" asp-action="Details" asp-route-Id="@filteredPet.Id">
+                            <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Details</button>
+                        </a>
+                    </td>
+                                <td>
+                        <a asp-controller="Animals" asp-action="Edit" asp-route-Id="@filteredPet.Id">
+                            <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Adopt</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Animals" asp-action="Edit" asp-route-Id="@filteredPet.Id">
+                            <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Edit</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Animals" asp-action="Delete" asp-route-Id="@filteredPet.Id">
+                            <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Delete</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+}
