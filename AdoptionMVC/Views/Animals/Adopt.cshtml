@@ -1,11 +1,12 @@
 ﻿@model AdoptionMVC.Models.Animal
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Adopt";
 }
 
-<h1>Details</h1>
+<h1>Delete</h1>
 
+<h3>Ready to adopt @Html.DisplayFor(model => model.Name)?</h3>
 <div>
     <h4>Animal</h4>
     <hr />
@@ -41,8 +42,10 @@
             @Html.DisplayFor(model => model.Age)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Adopt" class="btn btn-danger" /> |
+        <a asp-controller="Home" asp-action="Index">Back to List</a>
+    </form>
 </div>

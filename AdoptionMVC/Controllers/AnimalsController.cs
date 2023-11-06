@@ -34,6 +34,43 @@ namespace AdoptionMVC.Controllers
             return View(animal);
         }
 
+        // GET: Animals/Delete/5
+        public async Task<IActionResult> Adopt(int? id)
+        {
+            if (id == null || _context.Animals == null)
+            {
+                return NotFound();
+            }
+
+            var animal = await _context.Animals
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (animal == null)
+            {
+                return NotFound();
+            }
+
+            return View(animal);
+        }
+
+        // POST: Animals/Delete/5
+        [HttpPost, ActionName("Adopt")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdoptConfirmed(int id)
+        {
+            if (_context.Animals == null)
+            {
+                return Problem("Entity set 'AdoptionDbContext.Animals'  is null.");
+            }
+            var animal = await _context.Animals.FindAsync(id);
+            if (animal != null)
+            {
+                _context.Animals.Remove(animal);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: Animals/Create
         public IActionResult Create()
         {

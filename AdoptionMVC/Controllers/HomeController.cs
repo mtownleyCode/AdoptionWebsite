@@ -1,6 +1,5 @@
 ﻿using AdoptionMVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
@@ -24,17 +23,19 @@ namespace AdoptionMVC.Controllers
             string breed = "";
 
             List<Animal> filteredPets = db.Animals.ToList();
-            List<SelectListItem> AllPets = new List<SelectListItem>();
+            List<SelectListItem> Breeds = new List<SelectListItem>();
 
             foreach (Animal animal in filteredPets)
             {
-                AllPets.Add(new SelectListItem { Text = animal.Breed.ToString(), Value = iCNT.ToString() });
+                Breeds.Add(new SelectListItem { Text = animal.Breed.ToString(), Value = iCNT.ToString() });
                 iCNT++;
             }
 
-            ViewBag.AllPets = AllPets;
+            Breeds = Breeds.DistinctBy(x => x.Text).ToList();
 
-            if (selectedValue != null) breed = AllPets.FirstOrDefault(x => x.Value == selectedValue).Text;
+            ViewBag.Breeds = Breeds;
+
+            if (selectedValue != null) breed = Breeds.FirstOrDefault(x => x.Value == selectedValue).Text;
 
             if (breed != "")                
                 filteredPets = db.Animals.Where(x => x.Breed == breed).ToList();

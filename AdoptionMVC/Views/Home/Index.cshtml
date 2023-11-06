@@ -1,19 +1,12 @@
-﻿@{
-    List<Animal> filteredPets = new List<Animal>();
-}
-
-
-
-
-@using (Html.BeginForm("GetPets", "Home", FormMethod.Get))
+﻿@using (Html.BeginForm("GetPets", "Home", FormMethod.Get))
 {
 
     <fieldset>
 
         @Html.DropDownList("value", (IEnumerable
-    <SelectListItem>)ViewBag.AllPets,
-    "See All",
-    new { style = "width: 250px; margin-bottom: 10px" })
+        <SelectListItem>)ViewBag.Breeds,
+        "See All",
+        new { style = "width: 250px; margin-bottom: 10px" })
 
         <p>
 
@@ -55,24 +48,23 @@
             <p>Description: @filteredPet.Description</p>
             <p>Breed: @filteredPet.Breed</p>
             <p>Age: @filteredPet.Age</p>
-
             <table>
                 <tr>
                     <td>
                         <a asp-controller="Animals" asp-action="Details" asp-route-Id="@filteredPet.Id">
                             <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Details</button>
                         </a>
-                    </td>
-                                <td>
-                        <a asp-controller="Animals" asp-action="Edit" asp-route-Id="@filteredPet.Id">
+                    <td>
+                        <a asp-controller="Animals" asp-action="Adopt" asp-route-Id="@filteredPet.Id">
                             <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Adopt</button>
                         </a>
                     </td>
-                    <td>
+                    </td>
+                                <td>
                         <a asp-controller="Animals" asp-action="Edit" asp-route-Id="@filteredPet.Id">
                             <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Edit</button>
                         </a>
-                    </td>
+                    </td>                    
                     <td>
                         <a asp-controller="Animals" asp-action="Delete" asp-route-Id="@filteredPet.Id">
                             <button class="btn-primary" style="width: 100px; margin-bottom: 15px; margin-right: 10px">Delete</button>
